@@ -1,0 +1,22 @@
+<h1>Categories</h1>
+@if (loading()) {
+  <app-state-panel mode="loading" />
+} @else if (error()) {
+  <app-state-panel mode="error" [message]="error()!" (retry)="load()" />
+} @else {
+  <div class="grid">
+    @for (category of categories(); track category.id) {
+      <a class="tile" [routerLink]="['/products']" [queryParams]="{ category: category.slug }">
+        <mat-card appearance="outlined" appTilt [tiltMax]="7">
+          <mat-card-content class="content">
+            <mat-icon>category</mat-icon>
+            <div>
+              <div class="name">{{ category.name }}</div>
+              <div class="count">{{ category.productCount }} products</div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </a>
+    }
+  </div>
+}

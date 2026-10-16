@@ -1,0 +1,33 @@
+.badge {
+  display: inline-block;
+  padding: 3px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  border: 1px solid transparent;
+}
+
+.excellent {
+  background: rgba(26, 158, 90, 0.14);
+  color: #127a41;
+  border-color: rgba(26, 158, 90, 0.3);
+}
+
+.good {
+  background: rgba(30, 95, 208, 0.12);
+  color: #1a4fb0;
+  border-color: rgba(30, 95, 208, 0.28);
+}
+
+.normal {
+  background: rgba(20, 30, 60, 0.06);
+  color: var(--text-muted);
+  border-color: var(--border);
+}
+
+.expensive {
+  background: rgba(214, 69, 69, 0.12);
+  color: #b23636;
+  border-color: rgba(214, 69, 69, 0.28);
+}

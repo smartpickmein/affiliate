@@ -1,0 +1,50 @@
+.sub {
+  color: var(--text-muted);
+  max-width: 680px;
+  margin-top: -8px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 16px;
+  margin: 18px 0;
+}
+
+.grid mat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  will-change: transform;
+  box-shadow: var(--shadow-sm);
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.grid mat-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-3d);
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.stat mat-icon {
+  color: var(--accent);
+  filter: drop-shadow(0 0 8px var(--glow));
+}
+
+.value {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.label {
+  font-size: 13px;
+  color: var(--text-muted);
+}

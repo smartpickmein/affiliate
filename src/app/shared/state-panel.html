@@ -1,0 +1,17 @@
+<div class="state">
+  @switch (mode()) {
+    @case ('loading') {
+      <mat-progress-spinner mode="indeterminate" diameter="40" />
+      <p>{{ message() || 'Loading…' }}</p>
+    }
+    @case ('error') {
+      <mat-icon color="warn">error_outline</mat-icon>
+      <p>{{ message() || 'Something went wrong.' }}</p>
+      <button mat-stroked-button (click)="retry.emit()">Retry</button>
+    }
+    @case ('empty') {
+      <mat-icon>inbox</mat-icon>
+      <p>{{ message() || 'Nothing to show yet.' }}</p>
+    }
+  }
+</div>

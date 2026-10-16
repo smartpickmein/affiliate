@@ -1,0 +1,46 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 16px;
+}
+
+.tile {
+  text-decoration: none;
+  color: inherit;
+}
+
+.tile mat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  will-change: transform;
+  box-shadow: var(--shadow-sm);
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.tile:hover mat-card {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-3d);
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.content mat-icon {
+  color: var(--accent);
+}
+
+.name {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.count {
+  font-size: 13px;
+  color: var(--text-muted);
+}

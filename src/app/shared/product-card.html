@@ -1,0 +1,24 @@
+<mat-card appearance="outlined" class="card" appTilt>
+  <div class="thumb" [attr.aria-label]="product().brand">{{ initial() }}</div>
+  <mat-card-content class="body">
+    @if (score(); as s) {
+      <app-deal-badge [score]="s" />
+    }
+    <a class="title" [routerLink]="['/products', product().slug]">{{ product().title }}</a>
+    <div class="brand">{{ product().brand }}</div>
+    <div class="price">
+      @if (cheapest(); as offer) {
+        <span class="amount">{{ offer.price | inr }}</span>
+        <span class="from">at {{ offer.merchant.name }}</span>
+      } @else {
+        <span class="soon">View details</span>
+      }
+    </div>
+    @if (product().offers?.length) {
+      <div class="meta">{{ product().offers!.length }} offer(s)</div>
+    }
+  </mat-card-content>
+  <mat-card-actions>
+    <a mat-button color="primary" [routerLink]="['/products', product().slug]">Compare</a>
+  </mat-card-actions>
+</mat-card>

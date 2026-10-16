@@ -1,0 +1,98 @@
+@if (loading()) {
+  <app-state-panel mode="loading" />
+} @else if (error()) {
+  <app-state-panel mode="error" [message]="error()!" (retry)="reload()" />
+} @else if (product(); as p) {
+  <a class="back" routerLink="/products"><mat-icon>arrow_back</mat-icon> All products</a>
+
+  <header class="head">
+    <div class="thumb">{{ p.brand.charAt(0) }}</div>
+    <div>
+      <h1>{{ p.title }}</h1>
+      <div class="brand">{{ p.brand }}</div>
+      @if (range(); as r) {
+        <div class="range">
+          Price range: {{ r.min | inr }} – {{ r.max | inr }} across
+          {{ p.offers?.length ?? 0 }} merchant(s)
+        </div>
+      }
+      <a mat-stroked-button [routerLink]="['/price-history', p.slug]">
+        <mat-icon>show_chart</mat-icon> Price history
+      </a>
+    </div>
+  </header>
+
+  <section>
+    <h2>Offers</h2>
+    @if (sortedOffers().length) {
+      <div class="offers">
+        <div class="row header">
+          <span>Merchant</span><span>Price</span><span>Availability</span>
+          <span>Updated</span><span></span>
+        </div>
+        @for (offer of sortedOffers(); track offer.id) {
+          <div class="row" [class.best]="offer.id === cheapest()?.id">
+            <span class="merchant">
+              {{ offer.merchant.name }}
+              @if (offer.id === cheapest()?.id) {
+                <span class="tag">Best price</span>
+              }
+            </span>
+            <span class="price">{{ offer.price | inr }}</span>
+            <span [class.oos]="offer.availability === 'out_of_stock'">
+              {{ availabilityLabel(offer.availability) }}
+            </span>
+            <span class="updated">{{ offer.lastUpdated | date: 'MMM d, HH:mm' }}</span>
+            <span>
+              <a
+                mat-flat-button
+                color="primary"
+                [href]="offer.url"
+                target="_blank"
+                rel="noopener nofollow"
+                >Buy</a
+              >
+            </span>
+          </div>
+        }
+      </div>
+    } @else {
+      <p class="note">
+        Merchant offers aren't connected yet — price comparison appears here once offers are synced
+        in a later phase.
+      </p>
+    }
+  </section>
+
+  @if (p.variants?.length) {
+    <section>
+      <h2>Variants</h2>
+      <ul class="variants">
+        @for (variant of p.variants!; track variant.id) {
+          <li>
+            @if (variant.sku) {
+              <strong>{{ variant.sku }}</strong>
+            }
+            {{ attrText(variant.attributes) }}
+          </li>
+        }
+      </ul>
+    </section>
+  }
+
+  <section>
+    <h2>Specifications</h2>
+    <table class="specs">
+      <tbody>
+        @for (spec of specEntries(); track spec[0]) {
+          <tr>
+            <th>{{ spec[0] }}</th>
+            <td>{{ spec[1] }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </section>
+} @else {
+  <app-state-panel mode="empty" message="Product not found." />
+}

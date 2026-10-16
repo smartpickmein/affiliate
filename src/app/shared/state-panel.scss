@@ -1,0 +1,17 @@
+.state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 56px 16px;
+  color: var(--text-muted);
+  text-align: center;
+  animation: fade-in 0.4s ease both;
+}
+
+mat-icon {
+  font-size: 44px;
+  width: 44px;
+  height: 44px;
+  opacity: 0.9;
+}

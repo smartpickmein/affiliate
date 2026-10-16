@@ -1,0 +1,15 @@
+<h1>Deals</h1>
+<p class="sub">Deal scores are illustrative in this phase; real scoring arrives in Phase 12.</p>
+@if (loading()) {
+  <app-state-panel mode="loading" />
+} @else if (error()) {
+  <app-state-panel mode="error" [message]="error()!" (retry)="load()" />
+} @else if (deals().length === 0) {
+  <app-state-panel mode="empty" message="No deals right now." />
+} @else {
+  <div class="grid">
+    @for (deal of deals(); track deal.id) {
+      <app-product-card [product]="deal.product" [score]="deal.score" />
+    }
+  </div>
+}

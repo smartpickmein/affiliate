@@ -1,0 +1,28 @@
+<h1>Products</h1>
+
+<div class="filters">
+  <a mat-stroked-button routerLink="/products" [class.selected]="!category()">All</a>
+  @for (cat of categories(); track cat.id) {
+    <a
+      mat-stroked-button
+      routerLink="/products"
+      [queryParams]="{ category: cat.slug }"
+      [class.selected]="category() === cat.slug"
+      >{{ cat.name }}</a
+    >
+  }
+</div>
+
+@if (loading()) {
+  <app-state-panel mode="loading" />
+} @else if (error()) {
+  <app-state-panel mode="error" [message]="error()!" (retry)="reload()" />
+} @else if (products().length === 0) {
+  <app-state-panel mode="empty" message="No products in this category." />
+} @else {
+  <div class="grid">
+    @for (product of products(); track product.id) {
+      <app-product-card [product]="product" />
+    }
+  </div>
+}

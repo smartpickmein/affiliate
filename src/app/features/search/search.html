@@ -1,0 +1,30 @@
+<h1>Search</h1>
+<form class="bar" (submit)="submit($event)">
+  <mat-form-field appearance="outline" class="field">
+    <mat-label>Search products, brands or categories</mat-label>
+    <input
+      matInput
+      [value]="query()"
+      (input)="query.set($any($event.target).value)"
+      placeholder="e.g. Galaxy S25, laptop, Sony"
+    />
+  </mat-form-field>
+  <button mat-flat-button color="primary" type="submit">
+    <mat-icon>search</mat-icon> Search
+  </button>
+</form>
+
+@if (loading()) {
+  <app-state-panel mode="loading" />
+} @else if (error()) {
+  <app-state-panel mode="error" [message]="error()!" (retry)="run()" />
+} @else if (searched() && results().length === 0) {
+  <app-state-panel mode="empty" message="No products match your search." />
+} @else if (results().length) {
+  <p class="count">{{ results().length }} result(s)</p>
+  <div class="grid">
+    @for (product of results(); track product.id) {
+      <app-product-card [product]="product" />
+    }
+  </div>
+}

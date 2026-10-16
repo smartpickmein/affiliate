@@ -1,0 +1,26 @@
+<h1>Admin overview</h1>
+<p class="sub">
+  Read-only snapshot on mock data. Full catalog management, merchant config, match review and
+  analytics are role-protected features built in later phases.
+</p>
+
+@if (loading()) {
+  <app-state-panel mode="loading" />
+} @else if (error()) {
+  <app-state-panel mode="error" [message]="error()!" (retry)="load()" />
+} @else {
+  <div class="grid">
+    @for (stat of stats(); track stat.label) {
+      <mat-card appearance="outlined" appTilt [tiltMax]="7">
+        <mat-card-content class="stat">
+          <mat-icon>{{ stat.icon }}</mat-icon>
+          <div>
+            <div class="value">{{ stat.value }}</div>
+            <div class="label">{{ stat.label }}</div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
+  <a mat-button routerLink="/products">Go to catalog →</a>
+}

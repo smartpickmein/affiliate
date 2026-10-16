@@ -1,0 +1,37 @@
+<section class="hero">
+  <h1>Compare prices across authorized merchants in India</h1>
+  <p>Find the best offer, track price history and spot real deals — no scraping, just facts.</p>
+  <div class="cta">
+    <a mat-flat-button color="primary" routerLink="/products">Browse products</a>
+    <a mat-stroked-button routerLink="/deals">Today's deals</a>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <h2>Top deals</h2>
+    <a mat-button routerLink="/deals">View all</a>
+  </div>
+  @if (loading()) {
+    <app-state-panel mode="loading" />
+  } @else if (error()) {
+    <app-state-panel mode="error" [message]="error()!" (retry)="load()" />
+  } @else {
+    <div class="grid">
+      @for (deal of deals().slice(0, 3); track deal.id) {
+        <app-product-card [product]="deal.product" [score]="deal.score" />
+      }
+    </div>
+  }
+</section>
+
+<section>
+  <div class="head"><h2>Featured products</h2></div>
+  @if (!loading() && !error()) {
+    <div class="grid">
+      @for (product of featured(); track product.id) {
+        <app-product-card [product]="product" />
+      }
+    </div>
+  }
+</section>
